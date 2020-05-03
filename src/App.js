@@ -14,7 +14,9 @@ class App extends React.Component {
     axios
       .get('https://api.adviceslip.com/advice')
       .then((response) => {
-        console.log(response);
+        const { advice } = response.data.slip;
+
+        this.setState({ advice });
       })
       .catch((error) => {
         console.log(error);
@@ -22,7 +24,18 @@ class App extends React.Component {
   };
 
   render() {
-    return <h1>APP</h1>;
+    const { advice } = this.state;
+
+    return (
+      <div className="app">
+        <div className="card">
+          <h1 className="heading">{advice}</h1>
+          <button className="ui button primary btn" onClick={this.fetchAdvice}>
+            <span>Please, advice!</span>
+          </button>
+        </div>
+      </div>
+    );
   }
 }
 
